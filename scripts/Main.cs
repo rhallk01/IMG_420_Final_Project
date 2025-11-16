@@ -13,7 +13,7 @@ public partial class Main : Node2D
 	private Label _getTheKey;
 	private Label _boostMessage;
 	private AudioStreamPlayer2D _deathSound;
-	private Chest _chest;
+	private Door _door;
 	private Area2D _jumpBoost;
 	private Key _key;
 	private HudTutorial _hudTutorial;
@@ -29,7 +29,7 @@ public partial class Main : Node2D
 		_getTheKey = GetNode<Label>("HUD_tutorial/GetTheKey");
 		_boostMessage = GetNode<Label>("HUD_tutorial/BoostMessage");
 		_deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
-		_chest = GetNode<Chest>("Chest");
+		_door = GetNode<Door>("Door");
 		_jumpBoost = GetNode<Area2D>("JumpBoost");
 		_key = GetNode<Key>("Key");
 		_hudTutorial = GetNode<HudTutorial>("HUD_tutorial");
@@ -39,9 +39,9 @@ public partial class Main : Node2D
 		_player.Connect(Player.SignalName.GameOver, new Callable(this, nameof(_on_player_game_over)));
 		_jumpBoost.Connect("Boost", new Callable(this, nameof(_on_jump_boost_boost)));
 		_key.Connect("GotKey", new Callable(this, nameof(_on_key_got_key)));
-		_chest.Connect("GameWon", new Callable(this, nameof(_on_chest_game_won)));
-		_chest.Connect("NeedKey", new Callable(this, nameof(_on_chest_need_key)));
-		_chest.Connect("ShowWon", new Callable(this, nameof(_on_chest_show_won)));
+		_door.Connect("GameWon", new Callable(this, nameof(_on_door_game_won)));
+		_door.Connect("NeedKey", new Callable(this, nameof(_on_door_need_key)));
+		_door.Connect("ShowWon", new Callable(this, nameof(_on_door_show_won)));
 
 		// hide/show initial UI (with start button)
 		_hudTutorial.GetNode<Label>("YouWin").Hide();
@@ -70,7 +70,7 @@ public partial class Main : Node2D
 		 //make sure text is right, has key is false
 		//hide or show menus and messages
 		_keyStatus.Text = "you need\nthe key";
-		_chest.HasKey = false;
+		_door.HasKey = false;
 		_youWin.Hide();
 		_mainMenu.Hide();
 		_boostMessage.Hide();
@@ -151,11 +151,11 @@ public partial class Main : Node2D
 		}
 		//set the HUD message and variable to reflect that player has key
 		_keyStatus.Text = "you have\nthe key";
-		_chest.HasKey = true;
+		_door.HasKey = true;
 	}
 	
-	//handle player reaching the chest without the hey
-	public async void _on_chest_need_key()
+	//handle player reaching the door without the hey
+	public async void _on_door_need_key()
 	{
 		//show message that the player needs to get the key for 
 		//.4 seconds, then hide message 
@@ -177,9 +177,9 @@ public partial class Main : Node2D
 		_player.JumpForce = -275.0f;
 		_player.CanMove = true;
 		
-		// reset key and chest state
+		// reset key and door state
 		_key.Show();
-		_chest.HasKey = false;
+		_door.HasKey = false;
 
 		// update HUD text
 		var keyStatus = _hudTutorial.GetNode<Label>("keyStatus");
@@ -188,16 +188,16 @@ public partial class Main : Node2D
 		
 	}
 
-	//handle messages for player reaching chest with key
-	public void _on_chest_show_won()
+	//handle messages for player reaching door with key
+	public void _on_door_show_won()
 	{
 		//show you win message, hide extraneous messages
 		_youWin.Show();
 		_boostMessage.Hide();
 	}
 
-	//handle player reaching chest with key - winning!
-	public void _on_chest_game_won()
+	//handle player reaching door with key - winning!
+	public void _on_door_game_won()
 	{
 		GD.Print("won!");
 		//freeze the player, set their position to start
@@ -207,11 +207,11 @@ public partial class Main : Node2D
 		_player.SetPhysicsProcess(true);
 		_player.CanMove = false;
 
-		//reset chest animations 
-		_chest._ap.Play("closed");
+		//reset door animations 
+		_door._ap.Play("closed");
 		_youWin.Hide();
-		_chest.GetNode<Label>("ChestLabel").Hide();
-		_chest.GetNode<Sprite2D>("ChestLabel/arrow").Show();
+		_door.GetNode<Label>("DoorLabel").Hide();
+		_door.GetNode<Sprite2D>("DoorLabel/arrow").Show();
 
 		//go to show game won function
 		_mainMenu.show_game_won();

@@ -27,7 +27,6 @@ C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assi
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.AssemblyInfoInputs.cache
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.AssemblyInfo.cs
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.csproj.CoreCompileInputs.cache
-C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.sourcelink.json
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignme.0A7F7640.Up2Date
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.dll
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\refint\Assignment_1.dll

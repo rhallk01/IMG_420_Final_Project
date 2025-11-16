@@ -95,8 +95,7 @@ theme_override_constants/line_spacing = -2
 theme_override_fonts/font = ExtResource("1_ahhtf")
 theme_override_font_sizes/font_size = 11
 text = "get the key and 
-open the chest to win...
-die to lose!"
+open the door alive to win!"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="."]

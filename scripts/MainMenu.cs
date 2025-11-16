@@ -55,7 +55,7 @@ public partial class MainMenu : CanvasLayer
 		//show main menu
 		message.Text = "The Lunar Kingdom";
 		message.Show();
-		message2.Text = "get the key and\nopen the door to win...\ndie to lose!";
+		message2.Text = "get the key and\nopen the door alive to win!";
 		message2.Show();
 		startButton.Show();
 	}
@@ -96,7 +96,7 @@ public partial class MainMenu : CanvasLayer
 
 		//show main menu elements
 		message.Text = "The Lunar Kingdom";
-		message2.Text = "get the key and\nopen the chest to win...\ndie to lose!";
+		message2.Text = "get the key and\nopen the door alive to win!";
 		message.Show();
 		message2.Show();
 		startButton.Show();
