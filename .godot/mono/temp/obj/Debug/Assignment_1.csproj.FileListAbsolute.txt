@@ -33,3 +33,4 @@ C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\refi
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.pdb
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.genruntimeconfig.cache
 C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\ref\Assignment_1.dll
+C:\Users\hales\Senior\IMG_420\IMG_420_Final_Proj\.godot\mono\temp\obj\Debug\Assignment_1.sourcelink.json
