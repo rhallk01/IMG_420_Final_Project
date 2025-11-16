@@ -1,31 +1,35 @@
 [gd_scene load_steps=4 format=3 uid="uid://dum63pbdsv2w2"]
 
-[ext_resource type="Texture2D" uid="uid://bko4vf833kxu7" path="res://assets/textures/background_0.png" id="1_jougr"]
-[ext_resource type="Texture2D" uid="uid://c2uxog5ghro64" path="res://assets/textures/background_1.png" id="2_cbsqf"]
-[ext_resource type="Texture2D" uid="uid://x1i3ls4oewml" path="res://assets/textures/background_2.png" id="3_wisxt"]
+[ext_resource type="Texture2D" uid="uid://d1shdndrpk423" path="res://assets/textures/sky_1/orig.png" id="3_jougr"]
+[ext_resource type="Texture2D" uid="uid://c83agxbinw3xk" path="res://assets/textures/sky_1/3 - darker.png" id="4_wax1t"]
+[ext_resource type="Texture2D" uid="uid://288dwcsl1l6k" path="res://assets/textures/sky_1/4 - lighter.png" id="6_1tmhi"]
 
 [node name="Background" type="Node2D"]
 scale = Vector2(2, 2)
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_top = -1.5
-offset_right = 1193.0
-offset_bottom = 178.5
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_jougr")
+[node name="TextureRect9" type="TextureRect" parent="."]
+offset_left = -929.49994
+offset_top = -773.49994
+offset_right = 3086.5002
+offset_bottom = -449.49994
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("4_wax1t")
 stretch_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-offset_top = -1.5
-offset_right = 1222.0
-offset_bottom = 178.5
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_cbsqf")
+[node name="TextureRect8" type="TextureRect" parent="."]
+offset_left = -7.9999995
+offset_top = 309.0
+offset_right = 3351.3335
+offset_bottom = 633.0001
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("6_1tmhi")
 stretch_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="."]
-offset_right = 1222.0
-offset_bottom = 180.0
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("3_wisxt")
+[node name="TextureRect10" type="TextureRect" parent="."]
+offset_left = 12.5
+offset_top = -229.5
+offset_right = 3962.5002
+offset_bottom = 94.5
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("3_jougr")
 stretch_mode = 1
