@@ -1,0 +1,16 @@
+res://scenes/player.tscn
+res://scripts/MainMenu.cs
+res://scripts/Main.cs
+res://scripts/HudTutorial.cs
+res://scripts/Enemy.cs
+res://scripts/JumpBoost.cs
+res://scripts/Key.cs
+res://scripts/Chest.cs
+res://scripts/Player.cs
+res://resources/collision_shape_tall.tres
+res://scenes/background.tscn
+res://scenes/mainMenu.tscn
+res://scenes/main.tscn
+res://scenes/hud_tutorial.tscn
+res://scenes/jump_boost.tscn
+res://scenes/chest.tscn

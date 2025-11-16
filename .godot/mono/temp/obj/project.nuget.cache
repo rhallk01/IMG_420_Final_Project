@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "sVl2ipoxE68=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hales\\Senior\\IMG_420\\IMG_420_Final_Proj\\Assignment_1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hales\\.nuget\\packages\\godot.sourcegenerators\\4.5.0-beta.1\\godot.sourcegenerators.4.5.0-beta.1.nupkg.sha512",
+    "C:\\Users\\hales\\.nuget\\packages\\godotsharp\\4.5.0-beta.1\\godotsharp.4.5.0-beta.1.nupkg.sha512",
+    "C:\\Users\\hales\\.nuget\\packages\\godotsharpeditor\\4.5.0-beta.1\\godotsharpeditor.4.5.0-beta.1.nupkg.sha512",
+    "C:\\Users\\hales\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.22\\microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\hales\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.22\\microsoft.windowsdesktop.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\hales\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.22\\microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dum63pbdsv2w2"]
+
+[ext_resource type="Texture2D" uid="uid://bko4vf833kxu7" path="res://assets/textures/background_0.png" id="1_jougr"]
+[ext_resource type="Texture2D" uid="uid://c2uxog5ghro64" path="res://assets/textures/background_1.png" id="2_cbsqf"]
+[ext_resource type="Texture2D" uid="uid://x1i3ls4oewml" path="res://assets/textures/background_2.png" id="3_wisxt"]
+
+[node name="Background" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_top = -1.5
+offset_right = 1193.0
+offset_bottom = 178.5
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_jougr")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_top = -1.5
+offset_right = 1222.0
+offset_bottom = 178.5
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_cbsqf")
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_right = 1222.0
+offset_bottom = 180.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_wisxt")
+stretch_mode = 1
