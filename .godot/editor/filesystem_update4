@@ -1,11 +1,1 @@
-res://scripts/MainMenu.cs
-res://scripts/Main.cs
-res://scripts/HudTutorial.cs
-res://scripts/Enemy.cs
-res://scripts/JumpBoost.cs
-res://scripts/Key.cs
-res://scripts/Door.cs
-res://scripts/Player.cs
 res://scenes/main.tscn
-res://scenes/background.tscn
-res://scenes/mainMenu.tscn
