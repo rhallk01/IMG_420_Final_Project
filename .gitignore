@@ -5,5 +5,5 @@ Assignment_1.csproj
 
 # Other
 .import/
-.log/
-.tmp/
+*.log
+*.tmp
