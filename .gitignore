@@ -1,1 +1,9 @@
 Assignment_1.csproj
+
+# Godot-specific stuff
+.godot/
+
+# Other
+.import/
+.log/
+.tmp/
