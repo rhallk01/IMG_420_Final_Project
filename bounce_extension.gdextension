@@ -1,0 +1,5 @@
+[configuration]
+entry_symbol = "bounce_extension_library_init"
+
+[libraries]
+windows.debug.64 = "res://bin/libgdexample.windows.template_debug.x86_64.dll"
