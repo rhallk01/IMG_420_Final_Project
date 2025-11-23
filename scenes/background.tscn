@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://dum63pbdsv2w2"]
+
+[ext_resource type="Texture2D" uid="uid://d1shdndrpk423" path="res://assets/textures/sky_1/orig.png" id="3_jougr"]
+[ext_resource type="Texture2D" uid="uid://c83agxbinw3xk" path="res://assets/textures/sky_1/3 - darker.png" id="4_wax1t"]
+[ext_resource type="Texture2D" uid="uid://288dwcsl1l6k" path="res://assets/textures/sky_1/4 - lighter.png" id="6_1tmhi"]
+
+[node name="Background" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="TextureRect9" type="TextureRect" parent="."]
+offset_left = -929.49994
+offset_top = -773.49994
+offset_right = 3086.5002
+offset_bottom = -449.49994
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("4_wax1t")
+stretch_mode = 1
+
+[node name="TextureRect8" type="TextureRect" parent="."]
+offset_left = -7.9999995
+offset_top = 309.0
+offset_right = 3351.3335
+offset_bottom = 633.0001
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("6_1tmhi")
+stretch_mode = 1
+
+[node name="TextureRect10" type="TextureRect" parent="."]
+offset_left = 12.5
+offset_top = -229.5
+offset_right = 3962.5002
+offset_bottom = 94.5
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("3_jougr")
+stretch_mode = 1
