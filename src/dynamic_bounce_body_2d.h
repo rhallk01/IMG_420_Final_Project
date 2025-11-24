@@ -17,7 +17,7 @@ private:
     float energy_loss_rate = 0.2f;
     float energy = 1.0f;
     float base_strength = 1.0f;
-
+    Vector2 prev_velocity = Vector2();
     SurfaceMaterial *surface_material = nullptr;
 
 protected:
@@ -26,7 +26,7 @@ protected:
 
 public:
     //declare public functions
-    DynamicBounceBody2D() = default;
+    DynamicBounceBody2D();
 
     void set_surface_material(SurfaceMaterial *p_mat);
     SurfaceMaterial *get_surface_material() const { return surface_material; }
@@ -41,8 +41,12 @@ public:
     void set_base_strength(float p_strength);
     float get_base_strength() const;
 
+    void set_energy(float p_energy);
+    float get_energy() const;
+
+
     // virtual override of integrate forces
-    void _integrate_forces(PhysicsDirectBodyState2D *p_state) override;
+    virtual void _integrate_forces(PhysicsDirectBodyState2D *p_state) override;
 };
 
 }

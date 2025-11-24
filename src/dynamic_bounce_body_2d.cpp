@@ -4,6 +4,12 @@
 
 using namespace godot;
 
+// set up dynamic bounce body constructor
+DynamicBounceBody2D::DynamicBounceBody2D() {
+    prev_velocity = Vector2(0, 1); 
+    set_sleeping(false);
+    set_can_sleep(false);
+}
 
 void DynamicBounceBody2D::_bind_methods() {
     // bind method for size
@@ -12,6 +18,13 @@ void DynamicBounceBody2D::_bind_methods() {
     //add property for size
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "size", PROPERTY_HINT_RANGE, "0.1,10.0,0.1"),
                  "set_size", "get_size");
+
+    // bind method for energy
+    ClassDB::bind_method(D_METHOD("set_energy", "energy"), &DynamicBounceBody2D::set_energy);
+    ClassDB::bind_method(D_METHOD("get_energy"), &DynamicBounceBody2D::get_energy);
+    //add property for energy
+    ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "energy", PROPERTY_HINT_RANGE, "0.0,2.0,0.01"), 
+             "set_energy", "get_energy");
 
     // bind method for energy_loss_rate
     ClassDB::bind_method(D_METHOD("set_energy_loss_rate", "rate"), &DynamicBounceBody2D::set_energy_loss_rate);
@@ -77,60 +90,75 @@ float DynamicBounceBody2D::get_base_strength() const {
     return base_strength;
 }
 
+//set energy level
+void DynamicBounceBody2D::set_energy(float p_energy) { 
+    energy = p_energy; 
+}
+//get energy level
+float DynamicBounceBody2D::get_energy() const { 
+    return energy; 
+}
+
 // virtual override of _integrate_forces to implement bouncing behavior
 void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
+    UtilityFunctions::print("Integrating forces...");
+
     // check that p_state is valid
     if (!p_state) {
+        UtilityFunctions::print("Invalid PhysicsDirectBodyState2D pointer");
         return;
     }
+
+    // get current and previous velocity
+    Vector2 current_vel = p_state->get_linear_velocity();
+    Vector2 old_vel = prev_velocity;  
+    prev_velocity = current_vel;
+
+    // Debug: print velocity each frame
+    UtilityFunctions::print("Velocity:", p_state->get_linear_velocity());
+
+    // Check contacts but DO NOT return yet
+    int contact_count = p_state->get_contact_count();
+    UtilityFunctions::print("Contact count:", contact_count);
+
+
     // check if energy is depleted
     if (energy <= 0.0f) {
+        UtilityFunctions::print("Energy depleted, stopping integration.");
         return;
     }
     // get contact count
-    const int contact_count = p_state->get_contact_count();
+    //const int contact_count = p_state->get_contact_count();
     if (contact_count == 0) {
+        UtilityFunctions::print("No contacts detected.");
         return;
     }
-    // get current linear velocity
-    Vector2 linear_vel = p_state->get_linear_velocity();
 
     // iterate through contacts to find ground contact
     for (int i = 0; i < contact_count; i++) {
         Vector2 normal = p_state->get_contact_local_normal(i);
 
         // check if facing up and moving downwards
-        if (normal.y < -0.5f && linear_vel.y > 0.0f) {
-            float impact_speed = linear_vel.length();
+        if (normal.y < -0.5f && old_vel.y > 0.0f) {
 
-            float surface_factor = 1.0f;
-            if (surface_material) {
-                surface_factor = surface_material->get_hardness();
-            } else {
-                UtilityFunctions::push_warning("DynamicBounceBody2D: surface_material not set, using default factor 1.0.");
-            }
-
-            // calculate bounce speed using size, base strength, surface material, and energy
+            //get vars for bounce calculation
+            float impact_speed = old_vel.length();
+            float surface_factor = surface_material ? surface_material->get_hardness() : 1.0f;
             float size_factor = size;
+            // calculate bounce speed
             float bounce_speed = base_strength * impact_speed * size_factor * surface_factor * energy;
+            Vector2 new_vel = Vector2(current_vel.x, -bounce_speed);
+            p_state->set_linear_velocity(new_vel);
 
-            linear_vel.y = -bounce_speed;
-            p_state->set_linear_velocity(linear_vel);
-
-            // reduce energy based on loss rate
             energy -= energy_loss_rate;
-            if (energy < 0.0f) {
-                energy = 0.0f;
-                p_state->set_linear_velocity(Vector2(linear_vel.x, 0.0f));
-            }
+            if (energy < 0.0f) energy = 0.0f;
 
-            // stop bouncing when energy is too low
-            if (linear_vel.length() < 2.0f) {
+            if (Math::abs(new_vel.y) < 2.0f) {
                 p_state->set_linear_velocity(Vector2(0, 0));
                 set_sleeping(true);
             }
-
             break;
         }
     }
 }
+
