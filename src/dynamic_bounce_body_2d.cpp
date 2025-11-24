@@ -17,6 +17,7 @@ void DynamicBounceBody2D::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_energy_loss_rate", "rate"), &DynamicBounceBody2D::set_energy_loss_rate);
     ClassDB::bind_method(D_METHOD("get_energy_loss_rate"), &DynamicBounceBody2D::get_energy_loss_rate);
     //add property for energy_loss_rate
+    ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "energy_loss_rate", PROPERTY_HINT_RANGE, "0.0,1.0,0.01"),
                  "set_energy_loss_rate", "get_energy_loss_rate");
 
     // bind method for setting and getting surface_material
@@ -24,7 +25,7 @@ void DynamicBounceBody2D::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_surface_material"), &DynamicBounceBody2D::get_surface_material);
     //add property for surface_material
     ADD_PROPERTY(
-        PropertyInfo(Variant::OBJECT, "surface_material", PROPERTY_HINT_TYPE_STRING, "SurfaceMaterial"),
+        PropertyInfo(Variant::OBJECT, "surface_material", PROPERTY_HINT_RESOURCE_TYPE, "SurfaceMaterial"),
         "set_surface_material", "get_surface_material"
     );
 
@@ -121,6 +122,12 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
             if (energy < 0.0f) {
                 energy = 0.0f;
                 p_state->set_linear_velocity(Vector2(linear_vel.x, 0.0f));
+            }
+
+            // stop bouncing when energy is too low
+            if (linear_vel.length() < 2.0f) {
+                p_state->set_linear_velocity(Vector2(0, 0));
+                set_sleeping(true);
             }
 
             break;
