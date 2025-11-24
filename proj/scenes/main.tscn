@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cnvjf5uj6x52e"]
+[gd_scene load_steps=24 format=4 uid="uid://cnvjf5uj6x52e"]
 
 [ext_resource type="Script" uid="uid://j83b05wot50b" path="res://scripts/Main.cs" id="1_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dum63pbdsv2w2" path="res://scenes/background.tscn" id="2_jkv2x"]
@@ -263,6 +263,11 @@ color = Color(0.39607844, 0.91764706, 0.9529412, 1)
 hue_variation_min = -0.20000002
 hue_variation_max = 0.059999976
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jkv2x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbj1t"]
+size = Vector2(111, 20)
+
 [node name="Main" type="Node2D"]
 position = Vector2(78, -17)
 script = ExtResource("1_a8y0u")
@@ -342,5 +347,23 @@ process_material = SubResource("ParticleProcessMaterial_o8fc1")
 position = Vector2(765, 78)
 stream = ExtResource("16_jbj1t")
 volume_db = 0.21
+
+[node name="DynamicBounceBody2D" type="DynamicBounceBody2D" parent="."]
+position = Vector2(164, -71)
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DynamicBounceBody2D"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_jkv2x")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3, -4)
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(144, 133)
+shape = SubResource("RectangleShape2D_jbj1t")
 
 [connection signal="DiedByEnemy" from="Enemy" to="." method="_on_enemy_died_by_enemy"]
