@@ -1,7 +1,0 @@
-# Godot-specific stuff
-.godot/
-
-# Other
-.import/
-*.log
-*.tmp

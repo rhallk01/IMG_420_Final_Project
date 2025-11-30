@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cnvjf5uj6x52e"]
+[gd_scene load_steps=28 format=4 uid="uid://cnvjf5uj6x52e"]
 
 [ext_resource type="Script" uid="uid://j83b05wot50b" path="res://scripts/Main.cs" id="1_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dum63pbdsv2w2" path="res://scenes/background.tscn" id="2_jkv2x"]
@@ -13,8 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://brg04nkkx6n0q" path="res://scenes/hud_tutorial.tscn" id="12_og1vs"]
 [ext_resource type="PackedScene" uid="uid://bk52t225s8pcr" path="res://scenes/key.tscn" id="13_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://cqcm6jkiabsvv" path="res://assets/textures/white-spark-bright-clipart.png" id="14_vxglm"]
-[ext_resource type="SurfaceMaterial" uid="uid://bgm6ukew3iysd" path="res://materials/Rock3.tres" id="15_jkv2x"]
-[ext_resource type="AudioStream" uid="uid://kkl1x7dy2v1e" path="res://assets/skill-attack-combo-music-note-3-384969.mp3" id="16_jbj1t"]
+[ext_resource type="SurfaceMaterial" uid="uid://bgm6ukew3iysd" path="res://materials/PumpkinHardness.tres" id="15_jkv2x"]
+[ext_resource type="ImpactEvent" uid="uid://dtj37gweexso6" path="res://materials/PumpkinImpact.tres" id="16_dp3eg"]
+[ext_resource type="AudioStream" uid="uid://kkl1x7dy2v1e" path="res://assets/skill.mp3" id="16_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://cgyig08bk878d" path="res://assets/textures/pumpkin.png" id="17_dp3eg"]
+[ext_resource type="Script" uid="uid://droj5hpa4t5ks" path="res://scripts/ImpactEventHandler.cs" id="17_muem4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_o8fc1"]
 vertices = PackedVector2Array(708.21094, 96.8125, 621.0625, 95.15625, 619.0078, 74.60156, 708.7578, 71.36719)
@@ -347,14 +350,98 @@ position = Vector2(765, 78)
 stream = ExtResource("16_jbj1t")
 volume_db = 0.21
 
-[node name="DynamicBounceBody2D" type="DynamicBounceBody2D" parent="."]
+[node name="BounceBody" type="DynamicBounceBody2D" parent="."]
+energy = 1.05
+energy_loss_rate = 0.25
 surface_material = ExtResource("15_jkv2x")
-position = Vector2(58, 89)
+fade_on_stop = true
+impact_event = ExtResource("16_dp3eg")
+position = Vector2(58, 64)
 physics_material_override = SubResource("PhysicsMaterial_a8y0u")
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 100
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DynamicBounceBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody"]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_jkv2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="BounceBody"]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("17_dp3eg")
+
+[node name="ImpactEventHandler" type="Node2D" parent="BounceBody"]
+script = ExtResource("17_muem4")
+
+[node name="BounceBody4" type="DynamicBounceBody2D" parent="."]
+energy = 1.05
+energy_loss_rate = 0.0
+surface_material = ExtResource("15_jkv2x")
+fade_on_stop = true
+impact_event = ExtResource("16_dp3eg")
+position = Vector2(574, -74)
+physics_material_override = SubResource("PhysicsMaterial_a8y0u")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody4"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_jkv2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="BounceBody4"]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("17_dp3eg")
+
+[node name="ImpactEventHandler" type="Node2D" parent="BounceBody4"]
+script = ExtResource("17_muem4")
+
+[node name="BounceBody8" type="DynamicBounceBody2D" parent="."]
+energy = 1.05
+energy_loss_rate = 0.0
+surface_material = ExtResource("15_jkv2x")
+fade_on_stop = true
+impact_event = ExtResource("16_dp3eg")
+position = Vector2(1311, 118)
+physics_material_override = SubResource("PhysicsMaterial_a8y0u")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody8"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_jkv2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="BounceBody8"]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("17_dp3eg")
+
+[node name="ImpactEventHandler" type="Node2D" parent="BounceBody8"]
+script = ExtResource("17_muem4")
+
+[node name="BounceBody10" type="DynamicBounceBody2D" parent="."]
+energy = 1.05
+energy_loss_rate = 0.0
+surface_material = ExtResource("15_jkv2x")
+fade_on_stop = true
+impact_event = ExtResource("16_dp3eg")
+position = Vector2(1368, 15)
+physics_material_override = SubResource("PhysicsMaterial_a8y0u")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody10"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_jkv2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="BounceBody10"]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("17_dp3eg")
+
+[node name="ImpactEventHandler" type="Node2D" parent="BounceBody10"]
+script = ExtResource("17_muem4")

@@ -1,0 +1,10 @@
+# Godot-specific stuff
+.godot/
+
+# VS code
+.vs
+
+# Other
+.import/
+*.log
+*.tmp
