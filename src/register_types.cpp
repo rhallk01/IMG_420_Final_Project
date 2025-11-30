@@ -12,8 +12,8 @@ void initialize_bounce_extension(ModuleInitializationLevel p_level) {
         return;
     }
 
-    ClassDB::register_class<SurfaceMaterial>();
-    ClassDB::register_class<DynamicBounceBody2D>();
+    ClassDB::register_class<godot::SurfaceMaterial>();
+    ClassDB::register_class<godot::DynamicBounceBody2D>();
 }
 
 // uninitialize functions for the extension

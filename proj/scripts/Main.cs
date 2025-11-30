@@ -22,6 +22,7 @@ public partial class Main : Node2D
 	public override void _Ready()
 	{
 		//initialize variables refering to other nodes
+		GD.Print("Test");
 		_player = GetNode<Player>("Player");
 		_mainMenu = GetNode<MainMenu>("MainMenu");
 		_keyStatus = GetNode<Label>("HUD_tutorial/keyStatus");
