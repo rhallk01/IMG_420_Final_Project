@@ -5,6 +5,7 @@
 #include <godot_cpp/core/class_db.hpp>
 
 #include "surface_material.h"
+#include "impact_event.h"
 
 namespace godot {
 
@@ -20,6 +21,10 @@ private:
     Vector2 prev_velocity = Vector2();
     Ref<SurfaceMaterial> surface_material;
 
+    //New for Impact events
+    bool fade_on_stop = false;
+    Ref<ImpactEvent> impact_event;
+
 protected:
     //declare protected functions
     static void _bind_methods();
@@ -28,9 +33,6 @@ public:
     //declare public functions
     DynamicBounceBody2D();
 
-    void set_surface_material(const Ref<SurfaceMaterial> &p_mat);
-    Ref<SurfaceMaterial> get_surface_material() const { return surface_material; }
-
     //setters and getters
     void set_size(float p_size);
     float get_size() const;
@@ -38,12 +40,22 @@ public:
     void set_energy_loss_rate(float p_rate);
     float get_energy_loss_rate() const;
 
-    void set_base_strength(float p_strength);
-    float get_base_strength() const;
-
     void set_energy(float p_energy);
     float get_energy() const;
 
+    void set_base_strength(float p_strength);
+    float get_base_strength() const;
+
+    void set_surface_material(const Ref<SurfaceMaterial>& p_mat);
+    Ref<SurfaceMaterial> get_surface_material() const { return surface_material; }
+
+    // Set Impact events
+
+    void set_fade_on_stop(bool p_value);
+    bool get_fade_on_stop() const;
+
+    void set_impact_event(const Ref<ImpactEvent>& p_event);
+    Ref<ImpactEvent> get_impact_event() const;
 
     // virtual override of integrate forces
     virtual void _integrate_forces(PhysicsDirectBodyState2D *p_state) override;
