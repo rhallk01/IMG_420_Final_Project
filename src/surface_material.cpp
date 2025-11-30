@@ -11,7 +11,19 @@ void SurfaceMaterial::_bind_methods() {
                  "set_hardness", "get_hardness");
 }
 
+// explicit default constructor
+SurfaceMaterial::SurfaceMaterial() {
+    hardness = 1.0f;
+    UtilityFunctions::print("SurfaceMaterial constructor RAN, hardness = ", hardness);
+}
+
+
 // set the hardness value
 void SurfaceMaterial::set_hardness(float p_hardness) {
     hardness = p_hardness;
+}
+
+// get the hardness value
+float SurfaceMaterial::get_hardness() const {
+    return hardness;
 }

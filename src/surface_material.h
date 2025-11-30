@@ -6,7 +6,7 @@
 namespace godot {
 
 class SurfaceMaterial : public Resource {
-    GDCLASS(SurfaceMaterial, RefCounted)
+    GDCLASS(SurfaceMaterial, Resource)
 
 private:
     //declare private variables
@@ -18,9 +18,9 @@ protected:
 
 public:
     //declare public functions
-    SurfaceMaterial() = default;
+    SurfaceMaterial();
     void set_hardness(float p_hardness);
-    float get_hardness() const { return hardness; }
+    float get_hardness() const;
 };
 
 }

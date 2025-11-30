@@ -18,7 +18,7 @@ private:
     float energy = 1.0f;
     float base_strength = 1.0f;
     Vector2 prev_velocity = Vector2();
-    SurfaceMaterial *surface_material = nullptr;
+    Ref<SurfaceMaterial> surface_material;
 
 protected:
     //declare protected functions
@@ -28,8 +28,8 @@ public:
     //declare public functions
     DynamicBounceBody2D();
 
-    void set_surface_material(SurfaceMaterial *p_mat);
-    SurfaceMaterial *get_surface_material() const { return surface_material; }
+    void set_surface_material(const Ref<SurfaceMaterial> &p_mat);
+    Ref<SurfaceMaterial> get_surface_material() const { return surface_material; }
 
     //setters and getters
     void set_size(float p_size);

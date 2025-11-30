@@ -76,7 +76,7 @@ float DynamicBounceBody2D::get_energy_loss_rate() const {
 }
 
 //set surface material
-void DynamicBounceBody2D::set_surface_material(SurfaceMaterial *p_mat) {
+void DynamicBounceBody2D::set_surface_material(const Ref<SurfaceMaterial>& p_mat) {
     surface_material = p_mat;
 }
 
@@ -101,7 +101,7 @@ float DynamicBounceBody2D::get_energy() const {
 
 // virtual override of _integrate_forces to implement bouncing behavior
 void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
-    UtilityFunctions::print("Integrating forces...");
+    //UtilityFunctions::print("Integrating forces..."); TODO
 
     // check that p_state is valid
     if (!p_state) {
@@ -115,11 +115,11 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
     prev_velocity = current_vel;
 
     // Debug: print velocity each frame
-    UtilityFunctions::print("Velocity:", p_state->get_linear_velocity());
+    //UtilityFunctions::print("Velocity:", p_state->get_linear_velocity()); TOD
 
     // Check contacts but DO NOT return yet
     int contact_count = p_state->get_contact_count();
-    UtilityFunctions::print("Contact count:", contact_count);
+    //UtilityFunctions::print("Contact count:", contact_count); TODO
 
 
     // check if energy is depleted
@@ -130,7 +130,7 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
     // get contact count
     //const int contact_count = p_state->get_contact_count();
     if (contact_count == 0) {
-        UtilityFunctions::print("No contacts detected.");
+        //UtilityFunctions::print("No contacts detected.");
         return;
     }
 
@@ -143,7 +143,12 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
 
             //get vars for bounce calculation
             float impact_speed = old_vel.length();
-            float surface_factor = surface_material ? surface_material->get_hardness() : 1.0f;
+            float surface_factor = 1.0f;
+            // Do it this way to avoid posible dangling pointers
+            if (surface_material.is_valid()) {
+                surface_factor = surface_material->get_hardness();
+            }
+            UtilityFunctions::print("Surface hardness 1 = ", surface_factor); // TEST TODO REMOVE
             float size_factor = size;
             // calculate bounce speed
             float bounce_speed = base_strength * impact_speed * size_factor * surface_factor * energy;
