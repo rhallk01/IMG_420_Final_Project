@@ -2,6 +2,7 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/core/math.hpp>
 
+
 using namespace godot;
 
 // set up dynamic bounce body constructor
@@ -48,6 +49,30 @@ void DynamicBounceBody2D::_bind_methods() {
     //add property for base_strength
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "base_strength", PROPERTY_HINT_RANGE, "0.1,5.0,0.1"),
                  "set_base_strength", "get_base_strength");
+
+    // binds for ImpactEvents
+    ClassDB::bind_method(D_METHOD("set_fade_on_stop", "fade"), &DynamicBounceBody2D::set_fade_on_stop);
+    ClassDB::bind_method(D_METHOD("get_fade_on_stop"), &DynamicBounceBody2D::get_fade_on_stop);
+    ADD_PROPERTY(
+        PropertyInfo(Variant::BOOL, "fade_on_stop"),
+        "set_fade_on_stop", "get_fade_on_stop");
+
+    ClassDB::bind_method(D_METHOD("set_impact_event", "event"), &DynamicBounceBody2D::set_impact_event);
+    ClassDB::bind_method(D_METHOD("get_impact_event"), &DynamicBounceBody2D::get_impact_event);
+    ADD_PROPERTY(
+        PropertyInfo(
+            Variant::OBJECT,"impact_event", PROPERTY_HINT_RESOURCE_TYPE, "ImpactEvent" ),
+        "set_impact_event", "get_impact_event");
+
+    ADD_SIGNAL(MethodInfo(
+        "impact_event_signal",
+        PropertyInfo(Variant::FLOAT, "impact_speed"),
+        PropertyInfo(Variant::VECTOR2, "position"),
+        PropertyInfo(Variant::FLOAT, "surface_factor")
+    ));
+
+    ADD_SIGNAL(MethodInfo("bounce_finished"));
+    ADD_SIGNAL(MethodInfo("dissipated"));
 }
 //set size of the dynamic bounce body
 void DynamicBounceBody2D::set_size(float p_size) {
@@ -99,9 +124,27 @@ float DynamicBounceBody2D::get_energy() const {
     return energy; 
 }
 
+// Start Impact events
+
+void DynamicBounceBody2D::set_fade_on_stop(bool p_value) {
+    fade_on_stop = p_value;
+}
+bool DynamicBounceBody2D::get_fade_on_stop() const {
+    return fade_on_stop;
+}
+void DynamicBounceBody2D::set_impact_event(const Ref<ImpactEvent>& p_event) {
+    impact_event = p_event;
+}
+Ref<ImpactEvent> DynamicBounceBody2D::get_impact_event() const {
+    return impact_event;
+}
+
+// End Impact events
+
+
 // virtual override of _integrate_forces to implement bouncing behavior
 void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
-    //UtilityFunctions::print("Integrating forces..."); TODO
+    // UtilityFunctions::print("Integrating forces...");
 
     // check that p_state is valid
     if (!p_state) {
@@ -115,22 +158,29 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
     prev_velocity = current_vel;
 
     // Debug: print velocity each frame
-    //UtilityFunctions::print("Velocity:", p_state->get_linear_velocity()); TOD
+    // UtilityFunctions::print("Velocity:", p_state->get_linear_velocity());
 
     // Check contacts but DO NOT return yet
     int contact_count = p_state->get_contact_count();
-    //UtilityFunctions::print("Contact count:", contact_count); TODO
+    // UtilityFunctions::print("Contact count:", contact_count);
 
 
     // check if energy is depleted
     if (energy <= 0.0f) {
         UtilityFunctions::print("Energy depleted, stopping integration.");
+        p_state->set_linear_velocity(Vector2(0, 0));
+        set_sleeping(true);
+        emit_signal("bounce_finished");
+
+        if (fade_on_stop) {
+            emit_signal("dissipated");
+            call_deferred("queue_free");
+        }
         return;
     }
-    // get contact count
-    //const int contact_count = p_state->get_contact_count();
+
     if (contact_count == 0) {
-        //UtilityFunctions::print("No contacts detected.");
+        // UtilityFunctions::print("No contacts detected.");
         return;
     }
 
@@ -148,7 +198,13 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
             if (surface_material.is_valid()) {
                 surface_factor = surface_material->get_hardness();
             }
-            UtilityFunctions::print("Surface hardness 1 = ", surface_factor); // TEST TODO REMOVE
+            // UtilityFunctions::print("Surface surface_factor = ", surface_factor);
+
+            // Trigger ImpactEvent resource
+            if (impact_event.is_valid() && impact_speed >= impact_event->get_min_speed()) {
+                emit_signal("impact_event_signal", impact_speed, get_global_position(), surface_factor );
+            }
+
             float size_factor = size;
             // calculate bounce speed
             float bounce_speed = base_strength * impact_speed * size_factor * surface_factor * energy;
@@ -158,10 +214,6 @@ void DynamicBounceBody2D::_integrate_forces(PhysicsDirectBodyState2D *p_state) {
             energy -= energy_loss_rate;
             if (energy < 0.0f) energy = 0.0f;
 
-            if (Math::abs(new_vel.y) < 2.0f) {
-                p_state->set_linear_velocity(Vector2(0, 0));
-                set_sleeping(true);
-            }
             break;
         }
     }
