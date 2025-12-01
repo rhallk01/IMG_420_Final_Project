@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cnvjf5uj6x52e"]
+[gd_scene load_steps=32 format=4 uid="uid://cnvjf5uj6x52e"]
 
 [ext_resource type="Script" uid="uid://j83b05wot50b" path="res://scripts/Main.cs" id="1_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dum63pbdsv2w2" path="res://scenes/background.tscn" id="2_jkv2x"]
@@ -13,11 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://brg04nkkx6n0q" path="res://scenes/hud_tutorial.tscn" id="12_og1vs"]
 [ext_resource type="PackedScene" uid="uid://bk52t225s8pcr" path="res://scenes/key.tscn" id="13_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://cqcm6jkiabsvv" path="res://assets/textures/white-spark-bright-clipart.png" id="14_vxglm"]
-[ext_resource type="SurfaceMaterial" uid="uid://bgm6ukew3iysd" path="res://materials/PumpkinHardness.tres" id="15_jkv2x"]
-[ext_resource type="ImpactEvent" uid="uid://dtj37gweexso6" path="res://materials/PumpkinImpact.tres" id="16_dp3eg"]
+[ext_resource type="SurfaceMaterial" uid="uid://bgm6ukew3iysd" path="res://materials/StarHardness.tres" id="15_jkv2x"]
+[ext_resource type="ImpactEvent" uid="uid://dtj37gweexso6" path="res://materials/StarImpact.tres" id="16_dp3eg"]
 [ext_resource type="AudioStream" uid="uid://kkl1x7dy2v1e" path="res://assets/skill.mp3" id="16_jbj1t"]
-[ext_resource type="Texture2D" uid="uid://cgyig08bk878d" path="res://assets/textures/pumpkin.png" id="17_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://dqff1xpnl8h5l" path="res://assets/textures/Star.png" id="17_0ld40"]
 [ext_resource type="Script" uid="uid://droj5hpa4t5ks" path="res://scripts/ImpactEventHandler.cs" id="17_muem4"]
+[ext_resource type="Shape2D" uid="uid://kwkiqretuuu8" path="res://materials/BigStar.tres" id="19_0ld40"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_o8fc1"]
 vertices = PackedVector2Array(708.21094, 96.8125, 621.0625, 95.15625, 619.0078, 74.60156, 708.7578, 71.36719)
@@ -269,7 +270,13 @@ hue_variation_max = 0.059999976
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a8y0u"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jkv2x"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqmmt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yc10j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jscy8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pm3ni"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a8y0u")
@@ -300,7 +307,7 @@ position = Vector2(1759, 145)
 scale = Vector2(0.4, 0.4)
 
 [node name="Player" parent="." instance=ExtResource("6_0ld40")]
-position = Vector2(2, 155)
+position = Vector2(6, 147)
 
 [node name="MainMenu" parent="." instance=ExtResource("7_gqmmt")]
 layer = 1000
@@ -364,12 +371,12 @@ max_contacts_reported = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody"]
 position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_jkv2x")
+shape = SubResource("CircleShape2D_gqmmt")
 
 [node name="Sprite2D" type="Sprite2D" parent="BounceBody"]
 position = Vector2(0, -1.1920929e-07)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("17_dp3eg")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_0ld40")
 
 [node name="ImpactEventHandler" type="Node2D" parent="BounceBody"]
 script = ExtResource("17_muem4")
@@ -388,12 +395,12 @@ max_contacts_reported = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody4"]
 position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_jkv2x")
+shape = SubResource("CircleShape2D_yc10j")
 
 [node name="Sprite2D" type="Sprite2D" parent="BounceBody4"]
 position = Vector2(0, -1.1920929e-07)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("17_dp3eg")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_0ld40")
 
 [node name="ImpactEventHandler" type="Node2D" parent="BounceBody4"]
 script = ExtResource("17_muem4")
@@ -412,12 +419,12 @@ max_contacts_reported = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody8"]
 position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_jkv2x")
+shape = SubResource("CircleShape2D_jscy8")
 
 [node name="Sprite2D" type="Sprite2D" parent="BounceBody8"]
 position = Vector2(0, -1.1920929e-07)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("17_dp3eg")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_0ld40")
 
 [node name="ImpactEventHandler" type="Node2D" parent="BounceBody8"]
 script = ExtResource("17_muem4")
@@ -436,12 +443,36 @@ max_contacts_reported = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody10"]
 position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_jkv2x")
+shape = SubResource("CircleShape2D_pm3ni")
 
 [node name="Sprite2D" type="Sprite2D" parent="BounceBody10"]
 position = Vector2(0, -1.1920929e-07)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("17_dp3eg")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_0ld40")
 
 [node name="ImpactEventHandler" type="Node2D" parent="BounceBody10"]
+script = ExtResource("17_muem4")
+
+[node name="BounceBody11" type="DynamicBounceBody2D" parent="."]
+energy = 1.05
+energy_loss_rate = 0.0
+surface_material = ExtResource("15_jkv2x")
+fade_on_stop = true
+impact_event = ExtResource("16_dp3eg")
+position = Vector2(1597, -48)
+physics_material_override = SubResource("PhysicsMaterial_a8y0u")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBody11"]
+position = Vector2(0, 2)
+shape = ExtResource("19_0ld40")
+
+[node name="Sprite2D" type="Sprite2D" parent="BounceBody11"]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("17_0ld40")
+
+[node name="ImpactEventHandler" type="Node2D" parent="BounceBody11"]
 script = ExtResource("17_muem4")
