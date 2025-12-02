@@ -1,13 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://3msxavp3r178"]
 
-[ext_resource type="Texture2D" uid="uid://cgyig08bk878d" path="res://assets/textures/pumpkin.png" id="1_cn3qm"]
+[ext_resource type="Texture2D" uid="uid://dqff1xpnl8h5l" path="res://assets/textures/Star.png" id="1_veqfh"]
 
 [node name="ParticleSpawn" type="CPUParticles2D"]
-texture = ExtResource("1_cn3qm")
+emitting = false
+texture = ExtResource("1_veqfh")
 one_shot = true
 explosiveness = 1.0
 spread = 180.0
 initial_velocity_min = 186.27
 initial_velocity_max = 421.56
-scale_amount_min = 0.05
-scale_amount_max = 0.2
+scale_amount_min = 0.01
+scale_amount_max = 0.05

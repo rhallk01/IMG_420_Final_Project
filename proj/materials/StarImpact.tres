@@ -1,6 +1,5 @@
 [gd_resource type="ImpactEvent" format=3 uid="uid://dtj37gweexso6"]
 
 [resource]
-min_speed = 100.0
-particle_scene = &"res://scenes/PumpkinVFX.tscn"
+particle_scene = &"res://scenes/StarVFX.tscn"
 sound_event = &"res://assets/Bounce.mp3"

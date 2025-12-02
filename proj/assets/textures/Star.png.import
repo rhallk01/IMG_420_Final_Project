@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfvqcd2wewka4"
-path="res://.godot/imported/TerrariaBoulder.png-91be1414069d18eab79f3d3e55eaff01.ctex"
+uid="uid://dqff1xpnl8h5l"
+path="res://.godot/imported/Star.png-5a07225b5fcb4da3fb7b98265c2f1332.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/HunterTextures/TerrariaBoulder.png"
-dest_files=["res://.godot/imported/TerrariaBoulder.png-91be1414069d18eab79f3d3e55eaff01.ctex"]
+source_file="res://assets/textures/Star.png"
+dest_files=["res://.godot/imported/Star.png-5a07225b5fcb4da3fb7b98265c2f1332.ctex"]
 
 [params]
 
