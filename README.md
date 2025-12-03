@@ -35,7 +35,7 @@ it.
 2. Enemy that patrols and chases
 <img width="428" height="476" alt="image" src="https://github.com/user-attachments/assets/726f897e-1141-4395-8f99-59382698ab97" />
 
-3. Jump boost that can be collected for higher jumps for 30 seconds
+3. Jump boost that can be collected for higher jumps for 5 seconds
 <img width="353" height="303" alt="image" src="https://github.com/user-attachments/assets/fc2afd52-f664-42ae-88aa-ad3e709b52f7" />
 
 
