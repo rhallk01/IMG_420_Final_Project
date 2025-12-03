@@ -15,7 +15,7 @@
 dynamically when it collides with the ‘ground.’ This node has custom properties that are visible in the editor, including size, energy, energy loss, base strength, and fade on stop.
 
 
-**Surface Material**: A new resource that stores and applies surface material properties for hardness to allow for custom bounce behavior on it. This resource is built in as a property of 
+**Surface Material**: A new resource that stores and applies surface material properties for hardness to allow for custom bounce behavior on it. This resource is built in as a property of DynamicBounceBody2D
 
 
 **Impact Events**: A class that emits custom signals when a collision occurs or when the object
@@ -46,6 +46,7 @@ Bool fade\_on\_stop
 Property surface\_material: Float hardness
 
 Property impact\_event
+
 
 
 
