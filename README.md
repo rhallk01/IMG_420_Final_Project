@@ -6,11 +6,19 @@
 
 ## Module Functionality
 
-_The game is a 2D platformer with falling hazards that the player must avoid, and as a result the GD Extension has the following features:<br><br>_
-**Dynamic Bounce System**: A custom physics body that overrides the default collision response so that objects bounce realistically. The bounce strength will be calculated dynamically based on impact velocity, object size, and surface material. It will also include gradual energy loss so that the object eventually comes to rest.<br><br>
-**Surface Material**: A new resource or node type that stores and applies surface material properties (such as “soft,” “medium,” “hard”), allowing the bounce behavior to vary depending on what the object lands on.<br><br>
-**Impact Events**: A class that emits custom signals when a collision occurs or when the object dissipates after losing all of its bounce energy. It will trigger particles and sounds.<br><br>
-**Hazard Object**: A falling hazard object that has gravity applied, is integrated with bounce and impact events, and sends out a kill signal when touched by the player.<br><br>
+**DynamicBounceBody2D**: a custom node that extends RigidBody2D, creating an object that bounces
+dynamically when it collides with the ‘ground.’ This node has custom properties that are visible in the editor, including size, energy, energy loss, base strength, and fade on stop.
+<br><br>
+**Surface Material**: A new resource that stores and applies surface material properties for hardness to allow for custom bounce behavior on it. This resource is built in as a property of 
+<br><br>
+**Impact Events**: A class that emits custom signals when a collision occurs or when the object
+dissipates after losing all of its bounce energy. It will trigger particles and sounds. If bool
+fade_on_stop is true, the object in question will be removed from the game once the dissipation
+particles and sound are completed.
+<br><br>
+**HazardObject**: A custom node that extends a RigidBody2D, this object has gravity applied, is
+integrated with bounce and impact events, and sends out a kill signal when the player touches
+it.
 
 
 ---
