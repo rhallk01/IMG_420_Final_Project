@@ -48,7 +48,7 @@ it.
 1.  Clone or download the project folder.
 2. Open the project in Godot
 3. Build and run the project 
-4. On the main menu, press the **Start** button to begin the game\
+4. On the main menu, press the **Start** button to begin the game
    
 ---
 
