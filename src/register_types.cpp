@@ -2,7 +2,9 @@
 #include <godot_cpp/core/class_db.hpp>
 
 #include "surface_material.h"
+#include "impact_event.h" // Added ImpactEvent header
 #include "dynamic_bounce_body_2d.h"
+#include "hazard_object.h" // <-- NEW: Include the new class header
 
 using namespace godot;
 
@@ -12,9 +14,11 @@ void initialize_bounce_extension(ModuleInitializationLevel p_level) {
         return;
     }
 
+    // Register all custom classes
     ClassDB::register_class<godot::SurfaceMaterial>();
+    ClassDB::register_class<godot::ImpactEvent>(); // Registered ImpactEvent
     ClassDB::register_class<godot::DynamicBounceBody2D>();
-    ClassDB::register_class<godot::ImpactEvent>();
+    ClassDB::register_class<godot::HazardObject>(); // <-- NEW: Register the HazardObject
 }
 
 // uninitialize functions for the extension
@@ -41,4 +45,4 @@ GDExtensionBool GDE_EXPORT bounce_extension_library_init(
     return init_obj.init();
 }
 
-} 
+}
