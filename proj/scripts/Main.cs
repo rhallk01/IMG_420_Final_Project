@@ -17,6 +17,7 @@ public partial class Main : Node2D
 	private Area2D _jumpBoost;
 	private Key _key;
 	private HudTutorial _hudTutorial;
+	private Enemy _enemy; // <--- ADDED: Reference to the Enemy node
 
 	//override Ready for the main scene
 	public override void _Ready()
@@ -34,15 +35,44 @@ public partial class Main : Node2D
 		_jumpBoost = GetNode<Area2D>("JumpBoost");
 		_key = GetNode<Key>("Key");
 		_hudTutorial = GetNode<HudTutorial>("HUD_tutorial");
+		
+		// NEW: Initialize the Enemy node reference
+		_enemy = GetNodeOrNull<Enemy>("Enemy");
+
 
 		//connect signals 
-		_mainMenu.Connect(MainMenu.SignalName.StartGame, new Callable(this, nameof(_on_main_menu_start_game)));
-		_player.Connect(Player.SignalName.GameOver, new Callable(this, nameof(_on_player_game_over)));
-		_jumpBoost.Connect("Boost", new Callable(this, nameof(_on_jump_boost_boost)));
-		_key.Connect("GotKey", new Callable(this, nameof(_on_key_got_key)));
-		_door.Connect("GameWon", new Callable(this, nameof(_on_door_game_won)));
-		_door.Connect("NeedKey", new Callable(this, nameof(_on_door_need_key)));
-		_door.Connect("ShowWon", new Callable(this, nameof(_on_door_show_won)));
+		_mainMenu.Connect(MainMenu.SignalName.StartGame, 
+			new Callable(this, nameof(_on_main_menu_start_game)));
+		
+		// --- CRITICAL FIX: Connect the Player's falling signal to the fall handler ---
+		_player.Connect(Player.SignalName.FellToDeath, 
+			new Callable(this, nameof(_on_player_game_over)));
+		
+		// --- NEW CONNECTION: Connect the Player's hazard signal to the hazard handler ---
+		_player.Connect(Player.SignalName.HitByHazard, 
+			new Callable(this, nameof(_on_player_died)));
+		
+		_jumpBoost.Connect("Boost", 
+			new Callable(this, nameof(_on_jump_boost_boost)));
+		
+		_key.Connect("GotKey", 
+			new Callable(this, nameof(_on_key_got_key)));
+		
+		_door.Connect("GameWon", 
+			new Callable(this, nameof(_on_door_game_won)));
+		
+		_door.Connect("NeedKey", 
+			new Callable(this, nameof(_on_door_need_key)));
+		
+		_door.Connect("ShowWon", 
+			new Callable(this, nameof(_on_door_show_won)));
+
+		// NEW: Connect the Enemy signal to its handler
+		if (_enemy != null)
+		{
+			_enemy.Connect(Enemy.SignalName.DiedByEnemy, 
+				new Callable(this, nameof(_on_enemy_died_by_enemy)));
+		}
 
 		// hide/show initial UI (with start button)
 		_hudTutorial.GetNode<Label>("YouWin").Hide();
@@ -99,11 +129,21 @@ public partial class Main : Node2D
 	}
 
 	//handle player falling to their deat
+	// This now correctly handles the FellToDeath signal from Player.cs
 	public void _on_player_game_over()
 	{
 		//load appropriate death message, go to game over handling
 		var howDie = GetNode<Label>("MainMenu/WinOrLose/howDie");
 		howDie.Text = "you fell to your death";
+		game_over();
+	}
+	
+	// NEW: Handler for the C++ HazardObject via the new Player.HitByHazard signal
+	public void _on_player_died()
+	{
+		//load appropriate death message for the hazard
+		var howDie = GetNode<Label>("MainMenu/WinOrLose/howDie");
+		howDie.Text = "you were hit by a falling hazard";
 		game_over();
 	}
 
@@ -118,13 +158,15 @@ public partial class Main : Node2D
 		_boostMessage.Show();
 
 		//wait for 5 sec to give player 5 secs of boost
-		await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(5.0f), 
+			SceneTreeTimer.SignalName.Timeout);
 
 		//return jump force to normal, show boost over message for 1 sec
 		//after 1 sec, hide boost over message
 		_player.JumpForce = -275.0f;
 		_boostMessage.Text = "jump boost over";
-		await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(1.0f), 
+			SceneTreeTimer.SignalName.Timeout);
 		_boostMessage.Hide();
 	}
 
@@ -161,7 +203,8 @@ public partial class Main : Node2D
 		//show message that the player needs to get the key for 
 		//.4 seconds, then hide message 
 		_getTheKey.Show();
-		await ToSignal(GetTree().CreateTimer(0.4f), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(0.4f), 
+			SceneTreeTimer.SignalName.Timeout);
 		_getTheKey.Hide();
 	}
 

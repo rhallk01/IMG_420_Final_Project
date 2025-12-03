@@ -9,8 +9,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float JumpForce { get; set; } = -275.0f;
 	[Export] public float Gravity { get; set; } = 20.0f;
 
-	//set up signal game over
-	[Signal] public delegate void GameOverEventHandler();
+	// --- NEW/UPDATED SIGNALS ---
+	[Signal] public delegate void FellToDeathEventHandler(); // Renamed from GameOver
+	[Signal] public delegate void HitByHazardEventHandler(); // NEW signal for C++ hazard
 
 	//declare variables for necessary nodes
 	private AnimationPlayer _ap;
@@ -25,6 +26,19 @@ public partial class Player : CharacterBody2D
 
 	//load collision shape
 	private Shape2D _tallCShape = GD.Load<Shape2D>("res://resources/collision_shape_tall.tres");
+
+	// --- NEW: Method to trigger player death from C++ ---
+	public void Die()
+	{
+		// This method is called directly by the HazardObject C++ script
+		EmitSignal(SignalName.HitByHazard); 
+	}
+	
+	// --- NEW: REQUIRED FOR C++ COLLISION CHECK ---
+	public bool IsPlayer()
+	{
+		return true;
+	}
 
 	//initial settings, set nodes and freeze the player (as they will be on main menu screen)
 	public override void _Ready()
@@ -58,7 +72,7 @@ public partial class Player : CharacterBody2D
 			if (Velocity.Y > 1000)
 			{
 				Velocity = new Vector2(Velocity.X, 1000);
-				EmitSignal(SignalName.GameOver);
+				EmitSignal(SignalName.FellToDeath); // <-- UPDATED: Now emits FellToDeath
 			}
 		}
 
