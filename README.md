@@ -7,18 +7,18 @@
 ## Module Functionality
 
 **DynamicBounceBody2D**: a custom node that extends RigidBody2D, creating an object that bounces
-dynamically when it collides with the ‘ground.’ This node has custom properties that are visible in the editor, including size, energy, energy loss, base strength, and fade on stop.
+dynamically when it collides with the ‘ground.’ This node has custom properties that are visible in the editor, including size, energy, energy loss, base strength, and fade on stop.<br>
 ![star_dissipating_gif](https://github.com/user-attachments/assets/f03e81f2-ac64-4e10-b7df-1c31df13f7dc)
 <br><br>
 
-**Surface Material**: A new resource that stores and applies surface material properties for hardness to allow for custom bounce behavior on it. This resource is built in as a property of 
+**Surface Material**: A new resource that stores and applies surface material properties for hardness to allow for custom bounce behavior on it. This resource is built in as a property of DynamicBounceBody2D.<br>
 <img width="407" height="336" alt="image" src="https://github.com/user-attachments/assets/045fccbc-2fdc-4815-95bd-9f919636366c" />
 <br><br>
 
 **Impact Events**: A class that emits custom signals when a collision occurs or when the object
 dissipates after losing all of its bounce energy. It will trigger particles and sounds. If bool
 fade_on_stop is true, the object in question will be removed from the game once the dissipation
-particles and sound are completed.
+particles and sound are completed.<br>
 ![star_slow_down_gif](https://github.com/user-attachments/assets/91a183fe-ad38-4294-b509-1d4772395617)
 <br><br>
 **HazardObject**: A custom node that extends a RigidBody2D, this object has gravity applied, is
