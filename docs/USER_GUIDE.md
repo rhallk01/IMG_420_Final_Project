@@ -1,3 +1,4 @@
+# User Guide
 #### How to Run the Game
 
 1. Clone or download the project folder.
@@ -38,3 +39,4 @@
 * **Key**: Required to open the chest
 * **Door**: Opens only when the key is collected, triggers Gane Won
 * **Enemy**: Patrols or follows the player when in range and causes a Game Over on contact
+
