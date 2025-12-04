@@ -36,7 +36,8 @@
 ##### Interactables
 
 * **Moon** (Jump Boost): Grants a temporary jump power-up
-* **Key**: Required to open the chest
+* **Key**: Required to open the Door
 * **Door**: Opens only when the key is collected, triggers Gane Won
 * **Enemy**: Patrols or follows the player when in range and causes a Game Over on contact
+
 
